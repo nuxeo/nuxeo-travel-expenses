@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.content {
+  padding: 15px;
+  border: 1px solid #dedede;
+  border-top: none;
+}
+
+core-field {
+  border: 1px solid #ddd;
+  margin: 10px;
+  height: 40px;
+  background-color: #efefef;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-align: center;
+}
+
+ul li {
+  display: inline;
+}
+
+ul li:before {
+  content: '\ffed';
+  margin-right: 0.5em;
+}

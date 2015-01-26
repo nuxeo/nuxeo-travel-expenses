@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#03a9f4">
+
+  <title>Nuxeo Travel Expenses</title>
+
+  <link rel="icon" sizes="192x192" href="icon.png">
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
+
+  <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:vulcanized elements/elements.vulcanized.html -->
+  <link rel="import" href="elements/elements.html">
+  <!-- endbuild-->
+</head>
+<body fullbleed vertical layout unresolved>
+
+<template is="auto-binding">
+
+  <nx-connection url="/nuxeo"></nx-connection>
+
+  <flatiron-director route="{{taskId}}" autoHash></flatiron-director>
+
+  <core-header-panel flex>
+
+    <core-toolbar id="mainheader">
+      <core-icon-button icon="{{task ? 'arrow-back' : 'menu'}}"
+                        on-tap="{{back}}"></core-icon-button>
+      <div flex>{{task ? task.name : 'Travel Expenses' | i18n}}</div>
+      <paper-icon-button icon="search"></paper-icon-button>
+      <paper-icon-button icon="more-vert"></paper-icon-button>
+    </core-toolbar>
+
+    <travel-expenses fit taskId="{{taskId}}" task="{{task}}"></travel-expenses>
+
+  </core-header-panel>
+</template>
+<script>
+  var t = document.querySelector('template');
+  t.selectedTab = 0;
+  t.back = function () {
+    t.taskId = '';
+  };
+</script>
+</body>
+</html>

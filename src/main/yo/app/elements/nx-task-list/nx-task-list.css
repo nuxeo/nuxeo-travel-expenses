@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+core-item {
+  background-color: #efefef;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+paper-fab {
+  color: #fff;
+  right: 10px;
+  bottom: 10px;
+  position: absolute;
+}

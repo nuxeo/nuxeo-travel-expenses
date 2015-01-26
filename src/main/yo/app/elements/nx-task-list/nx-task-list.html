@@ -1,0 +1,151 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../../bower_components/core-field/core-field.html">
+<link rel="import" href="../../bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="../../bower_components/core-item/core-item.html">
+<link rel="import" href="../../bower_components/core-list/core-list.html">
+<link rel="import" href="../../bower_components/nuxeo-elements/nx-resource.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../nx-task/nx-task.html">
+
+<polymer-element name="nx-task-list" attributes="workflowModel taskId task" layout vertical>
+  <template>
+    <link rel="stylesheet" href="nx-task-list.css">
+
+    <!-- The list of all tasks for the current workflow model -->
+    <nx-resource id="tasks" path="/task" params='{"workflowModelName": "{{workflowModel}}"}'></nx-resource>
+
+    <!-- The current task -->
+    <nx-resource id="task" path="/task/{{taskId}}" data="{{task}}"></nx-resource>
+
+    <!-- The workflow instance resource -->
+    <nx-resource id="workflow" path="/workflow/{{workflowInstanceId}}" data="{{workflowInstance}}"></nx-resource>
+
+    <!-- The list of workflow instance tasks -->
+    <nx-resource id="workflowTasks" path="/task"
+                 params='{"workflowInstanceId": "{{workflowInstanceId}}"}'></nx-resource>
+
+    <core-animated-pages id="pages" fit selected="{{taskId? 1 : 0}}" transitions="cross-fade-all">
+
+      <!-- List of task -->
+      <core-list id="list" data="{{tasks}}" on-core-activate="{{select}}">
+        <template>
+          <core-item icon="assignment" class="item">
+            <div flex>
+              {{model.name | i18n}}
+            </div>
+            <core-icon-button icon="delete" style="float:right" on-tap="{{deleteWorkflow}}"></core-icon-button>
+          </core-item>
+        </template>
+      </core-list>
+
+      <!-- Current task -->
+      <nx-task task="{{task}}" on-action="{{goToNextWorkflowTask}}">
+        <content select=".{{task.type}}"></content>
+      </nx-task>
+
+    </core-animated-pages>
+
+    <template if="{{!taskId}}">
+      <paper-fab icon="add" title="Add" on-tap="{{newEntry}}"></paper-fab>
+    </template>
+
+    <paper-toast id="createdMessage" text="Started workflow."></paper-toast>
+    <paper-toast id="deletedMessage" text="Deleted workflow."></paper-toast>
+  </template>
+  <script>
+    (function () {
+      Polymer({
+
+        taskId: '',
+        task: null,
+
+        workflowInstanceId: '',
+        workflowInstance: null,
+
+        ready: function () {
+          this.updateTasks();
+        },
+
+        select: function (e, detail) {
+          this.task = detail.data;
+        },
+
+        taskChanged: function () {
+          if (this.task) {
+            this.taskId = this.task.id;
+            this.task.model = {};
+          } else {
+            this.taskId = '';
+          }
+        },
+
+        taskIdChanged: function () {
+          if (!this.taskId) {
+            this.task = null;
+            this.updateTasks();
+            return;
+          }
+          if (!this.task || (this.taskId != this.task.id)) {
+            this.$.task.get();
+          }
+        },
+
+        workflowChanged: function () {
+          this.workflowInstanceId = (this.workflowInstance) ? this.workflowInstance.id : '';
+        },
+
+        newEntry: function () {
+          this.workflowInstanceId = '';
+          this.$.workflow
+            .post({
+              'entity-type': 'org.nuxeo.ecm.restapi.server.jaxrs.routing.model.WorkflowRequest',
+              'value': {
+                workflowModelName: this.workflowModel
+              }
+            })
+            // get the task for the new workflow instance
+            .then(function (response) {
+              this.$.createdMessage.show();
+              this.workflowInstanceId = response.id;
+              this.async(this.goToNextWorkflowTask);
+            }.bind(this))
+
+        },
+
+        goToNextWorkflowTask: function () {
+          this.$.workflowTasks.get()
+            // set the current task to our first if any
+            .then(function (response) {
+              if (response.entries.length) {
+                this.task = response.entries[0];
+              } else {
+                this.task = null;
+              }
+            }.bind(this));
+        },
+
+        updateTasks: function () {
+          this.$.tasks.get().then(function (data) {
+            this.tasks = data.entries;
+          }.bind(this));
+        },
+
+        deleteWorkflow: function (e, detail, sender) {
+          e.preventDefault();
+          e.stopPropagation();
+          var doDelete = window.confirm("Are you sure you want to delete ?");
+          if (doDelete) {
+            this.workflowInstanceId = sender.templateInstance.model.model.workflowId;
+            this.$.workflow.remove().then(function () {
+              this.$.deletedMessage.show();
+              this.updateTasks();
+            }.bind(this));
+          }
+          return false;
+        }
+      });
+    })();
+  </script>
+</polymer-element>

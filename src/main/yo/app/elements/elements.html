@@ -1,0 +1,40 @@
+<link rel="import" href="../bower_components/core-pages/core-pages.html">
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../bower_components/flatiron-director/flatiron-director.html">
+
+<link rel="import" href="../bower_components/nuxeo-elements/nx-connection.html">
+
+<link rel="import" href="travel-expenses/travel-expenses.html">
+<link rel="import" href="nx-task/nx-task.html">
+<link rel="import" href="nx-task-list/nx-task-list.html">
+
+<script>
+  PolymerExpressions.prototype.date = function (str) {
+    return (str) ? new Date(str).toLocaleString() : '';
+  };
+
+  PolymerExpressions.prototype.i18n = function (key) {
+    return {
+        'wf.actors': 'Actors',
+        'wf.dueDate': 'Due date',
+        'wf.directive': 'Directive,',
+        'wf.travelExpenses.create': 'Create expense',
+        'wf.travelExpenses.validate': 'Validate expense',
+        'wf.travelExpenses.accountancy': 'Account for expense',
+        'wf.travelExpenses.submitExpense': 'Submit for validation',
+        'wf.travelExpenses.customerCode': 'Set customer code',
+        'wf.travelExpenses.submit': 'Submit',
+        'wf.travelExpenses.cancel': 'Cancel',
+        'wf.travelExpenses.done': 'Done',
+        'wf.travelExpenses.label': 'Label',
+        'wf.travelExpenses.amount': 'Amount',
+        'wf.travelExpenses.description': 'Description',
+        'wf.travelExpenses.nature': 'Nature',
+        'wf.travelExpenses.file': 'File'
+      }[key] || key;
+  };
+</script>

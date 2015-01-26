@@ -1,0 +1,33 @@
+body {
+  background: #fafafa;
+  color: #333;
+  font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+  font-size: 14px;
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+}
+
+core-header-panel {
+  background: white;
+}
+
+.content {
+  height: 2000px;
+}
+
+core-toolbar {
+  background-color: #03A9F4;
+  color: #fff;
+}
+
+p {
+  margin: 20px;
+  padding: 80px 20px;
+  border-radius: 20px;
+  background-color: #eee;
+}

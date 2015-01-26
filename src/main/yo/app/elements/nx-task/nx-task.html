@@ -1,0 +1,73 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<!--
+<link rel="import" href="../../bower_components/nuxeo-elements/nx-widgets.html">
+<link rel="import" href="../../bower_components/nuxeo-elements/nx-layout.html">
+-->
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<polymer-element name="nx-task" attributes="task" vertical layou>
+  <template>
+    <link rel="stylesheet" href="nx-task.css">
+
+    <!-- task completion resource -->
+    <!-- TODO(nfgs): use data="{{model}}" -->
+    <nx-resource id="action" path="/task/{{task.id}}/{{action}}"></nx-resource>
+
+    <div class="content">
+
+      <content></content>
+
+      <core-field>
+        <core-icon icon="group-work" title="[['wf.actors' | i18n]]"></core-icon>
+        <ul>
+          <template repeat="{{actor in task.actors}}">
+            <li>{{actor.id}}</li>
+          </template>
+        </ul>
+      </core-field>
+
+      <core-field>
+        <core-icon icon="alarm" title="[['wf.dueDate' | i18n]]"></core-icon>
+        <span>{{task.dueDate | date}}</span>
+      </core-field>
+
+      <core-field>
+        <core-icon icon="flag" title="[['wf.directive' | i18n]]"></core-icon>
+        <span>{{task.directive | i18n}}</span>
+      </core-field>
+
+    </div>
+
+    <core-toolbar>
+      <template repeat="{{action in task.taskInfo.taskActions}}">
+        <paper-button on-tap="{{callAction}}" raised>[[action.label | i18n]]</paper-button>
+      </template>
+    </core-toolbar>
+
+    <paper-toast id="errorMessage" text="Failed to invoke [[action]]"></paper-toast>
+  </template>
+  <script>
+    (function () {
+      Polymer({
+
+        callAction: function (event, detail, sender) {
+          this.action = sender.templateInstance.model.action.name;
+          this.$.action
+            .put({
+              'entity-type': 'org.nuxeo.ecm.restapi.server.jaxrs.routing.model.TaskCompletionRequest',
+              value: {
+                variables: this.task.variables
+              }
+            })
+            .then(function (data) {
+              this.fire("action", this.action);
+            }.bind(this))
+            .catch(function (error) {
+              this.$.errorMessage.show();
+            }.bind(this));
+        }
+      });
+    })();
+  </script>
+</polymer-element>
