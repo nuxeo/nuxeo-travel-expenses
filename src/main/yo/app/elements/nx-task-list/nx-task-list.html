@@ -20,11 +20,11 @@
     <nx-resource id="task" path="/task/{{taskId}}" data="{{task}}"></nx-resource>
 
     <!-- The workflow instance resource -->
-    <nx-resource id="workflow" path="/workflow/{{workflowInstanceId}}" data="{{workflowInstance}}"></nx-resource>
+    <nx-resource id="workflow" path="/workflow/{{workflowInstance.id}}" data="{{workflowInstance}}"></nx-resource>
 
     <!-- The list of workflow instance tasks -->
     <nx-resource id="workflowTasks" path="/task"
-                 params='{"workflowInstanceId": "{{workflowInstanceId}}"}'></nx-resource>
+                 params='{"workflowInstanceId": "{{workflowInstance.id}}"}'></nx-resource>
 
     <core-animated-pages id="pages" fit selected="{{taskId? 1 : 0}}" transitions="cross-fade-all">
 
@@ -42,7 +42,7 @@
 
       <!-- Current task -->
       <nx-task task="{{task}}" on-action="{{goToNextWorkflowTask}}">
-        <content select=".{{task.type}}"></content>
+        <content select=".{{task.nodeName}}"></content>
       </nx-task>
 
     </core-animated-pages>
@@ -75,7 +75,6 @@
         taskChanged: function () {
           if (this.task) {
             this.taskId = this.task.id;
-            this.task.model = {};
           } else {
             this.taskId = '';
           }
@@ -92,23 +91,15 @@
           }
         },
 
-        workflowChanged: function () {
-          this.workflowInstanceId = (this.workflowInstance) ? this.workflowInstance.id : '';
-        },
-
         newEntry: function () {
-          this.workflowInstanceId = '';
-          this.$.workflow
-            .post({
-              'entity-type': 'org.nuxeo.ecm.restapi.server.jaxrs.routing.model.WorkflowRequest',
-              'value': {
-                workflowModelName: this.workflowModel
-              }
-            })
+          this.workflowInstance = {
+            'entity-type': 'workflow',
+            workflowModelName: this.workflowModel
+          };
+          this.$.workflow.post()
             // get the task for the new workflow instance
             .then(function (response) {
               this.$.createdMessage.show();
-              this.workflowInstanceId = response.id;
               this.async(this.goToNextWorkflowTask);
             }.bind(this))
 
@@ -137,7 +128,10 @@
           e.stopPropagation();
           var doDelete = window.confirm("Are you sure you want to delete ?");
           if (doDelete) {
-            this.workflowInstanceId = sender.templateInstance.model.model.workflowId;
+            this.workflowInstance = {
+              'entity-type': 'workflow',
+              'id': sender.templateInstance.model.model.workflowInstanceId
+            };
             this.$.workflow.remove().then(function () {
               this.$.deletedMessage.show();
               this.updateTasks();

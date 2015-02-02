@@ -10,9 +10,8 @@
   <template>
     <link rel="stylesheet" href="nx-task.css">
 
-    <!-- task completion resource -->
-    <!-- TODO(nfgs): use data="{{model}}" -->
-    <nx-resource id="action" path="/task/{{task.id}}/{{action}}"></nx-resource>
+    <!-- task resource -->
+    <nx-resource id="task" path="/task/{{task.id}}/{{action}}" data="{{task}}"></nx-resource>
 
     <div class="content">
 
@@ -53,13 +52,8 @@
 
         callAction: function (event, detail, sender) {
           this.action = sender.templateInstance.model.action.name;
-          this.$.action
-            .put({
-              'entity-type': 'org.nuxeo.ecm.restapi.server.jaxrs.routing.model.TaskCompletionRequest',
-              value: {
-                variables: this.task.variables
-              }
-            })
+          this.$.task
+            .put()
             .then(function (data) {
               this.fire("action", this.action);
             }.bind(this))
