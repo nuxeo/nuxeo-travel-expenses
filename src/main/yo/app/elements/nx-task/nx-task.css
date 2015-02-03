@@ -4,8 +4,7 @@
 
 .content {
   padding: 15px;
-  border: 1px solid #dedede;
-  border-top: none;
+  margin-bottom: 70px;
 }
 
 core-field {
@@ -29,4 +28,11 @@ ul li {
 ul li:before {
   content: '\ffed';
   margin-right: 0.5em;
+}
+
+core-toolbar {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  position: fixed;
 }

@@ -16,18 +16,23 @@ core-header-panel {
   background: white;
 }
 
-.content {
-  height: 2000px;
-}
-
 core-toolbar {
   background-color: #03A9F4;
   color: #fff;
 }
 
-p {
-  margin: 20px;
-  padding: 80px 20px;
-  border-radius: 20px;
-  background-color: #eee;
+core-field {
+  border: 1px solid #ddd;
+  margin: 10px;
+  height: 40px;
+}
+
+.content {
+  height: 2000px;
+}
+
+.item {
+  background-color: #efefef;
+  border: 1px solid #ddd;
+  padding: 10px;
 }

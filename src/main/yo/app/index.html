@@ -30,19 +30,118 @@
 
   <nx-connection url="/nuxeo"></nx-connection>
 
-  <flatiron-director route="{{taskId}}" autoHash></flatiron-director>
+  <!-- TODO: enable the router -->
+  <!-- flatiron-director route="{{taskId}}" autoHash></flatiron-director -->
 
   <core-header-panel flex>
 
-    <core-toolbar id="mainheader">
+    <core-toolbar id="mainheader" class="medium-tall">
       <core-icon-button icon="{{task ? 'arrow-back' : 'menu'}}"
                         on-tap="{{back}}"></core-icon-button>
       <div flex>{{task ? task.name : 'Travel Expenses' | i18n}}</div>
-      <paper-icon-button icon="search"></paper-icon-button>
-      <paper-icon-button icon="more-vert"></paper-icon-button>
+      <paper-icon-button icon="refresh" on-tap={{refresh}}"></paper-icon-button>
+      <div class="bottom fit" horizontal layout>
+        <paper-tabs selected="{{selectedTab}}" valueattr="path" flex style="max-width: 600px;">
+          <paper-tab>MY TASKS</paper-tab>
+          <paper-tab>MY REQUESTS</paper-tab>
+        </paper-tabs>
+      </div>
     </core-toolbar>
 
-    <travel-expenses fit taskId="{{taskId}}" task="{{task}}"></travel-expenses>
+    <core-pages fit selected="{{selectedTab}}">
+
+      <!-- Task List -->
+      <nx-task-list workflowModel="TravelExpenseValidation" taskId="{{taskId}}" task="{{task}}">
+
+        <!-- Create -->
+        <div class="Task4fb">
+          <core-field>
+            <core-icon icon="label"></core-icon>
+            <input value="{{task.variables.label}}" placeholder="[['wf.travelExpenses.label' | i18n]]" required>
+          </core-field>
+          <core-field>
+            <core-icon icon="credit-card"></core-icon>
+            <label>€ </label>
+            <input value="{{task.variables.amount}}" type="number" step="0.01" required></core-input>
+          </core-field>
+          <core-field>
+            <core-icon icon="description"></core-icon>
+            <input value="{{task.variables.description}}" placeholder="[['wf.travelExpenses.description' | i18n]]"
+                   required></core-input>
+          </core-field>
+          <core-field>
+            <core-icon icon="store"></core-icon>
+            <select value="{{task.variables.nature}}">
+              <option value="transportation">Transportation</option>
+              <option value="lunch">Lunch</option>
+              <option value="hotel">Hotel</option>
+            </select>
+          </core-field>
+          <core-field>
+            <core-icon icon="attachment"></core-icon>
+            <input type="file"></core-input>
+          </core-field>
+        </div>
+
+        <!-- Accept / Reject -->
+        <div class="Task12ef">
+          <core-field>
+            <core-icon icon="label" title="[['wf.travelExpenses.label' | i18n]]"></core-icon>
+            <span>{{task.variables.label}}</span>
+          </core-field>
+          <core-field>
+            <core-icon icon="credit-card" title="[['wf.travelExpenses.amount' | i18n]]"></core-icon>
+            <label>&euro;&nbsp;</label>
+            <span>{{task.variables.amount}}</span>
+          </core-field>
+          <core-field>
+            <core-icon icon="description" title="[['wf.travelExpenses.description' | i18n]]"></core-icon>
+            <span>{{task.variables.description}}</span>
+          </core-field>
+          <core-field>
+            <core-icon icon="store" title="[['wf.travelExpenses.nature' | i18n]]"></core-icon>
+            <span>{{task.variables.nature}}</span>
+          </core-field>
+          <core-field>
+            <core-icon icon="attachment" title="[['wf.travelExpenses.file' | i18n]]"></core-icon>
+            <a href="">file</a>
+          </core-field>
+        </div>
+
+        <!-- Accountancy -->
+        <div class="Task1431">
+          <core-field>
+            <core-icon icon="label"></core-icon>
+            <span>{{task.variables.label}}</span>
+          </core-field>
+          <core-field>
+            <core-icon icon="credit-card"></core-icon>
+            <label>&euro;&nbsp;</label>
+            <span>{{task.variables.amount}}</span>
+          </core-field>
+          <core-field>
+            <core-icon icon="description"></core-icon>
+            <span>{{task.variables.description}}</span>
+          </core-field>
+          <core-field>
+            <core-icon icon="store"></core-icon>
+            <span>{{task.variables.nature}}</span>
+          </core-field>
+          <core-field>
+            <core-icon icon="attachment"></core-icon>
+            <a href="">file</a>
+          </core-field>
+          <core-field>
+            <core-icon icon="label"></core-icon>
+            <input value="{{task.variables.customer_code}}" placeholder="Customer code" required>
+          </core-field>
+        </div>
+      </nx-task-list>
+
+      <!-- Workflow List -->
+      <nx-workflow-list fit workflowModel="TravelExpenseValidation"></nx-workflow-list>
+
+    </core-pages>
 
   </core-header-panel>
 </template>
@@ -52,6 +151,9 @@
   t.back = function () {
     t.taskId = '';
   };
+  t.refresh = function () {
+    location.reload();
+  }
 </script>
 </body>
 </html>

@@ -2,6 +2,21 @@
   display: block;
 }
 
+#list {
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 0;
+  height: 100%;
+}
+
+.state {
+  float:right;
+  text-transform: uppercase;
+  color: gray;
+  padding: 5px;
+}
+
 core-item {
   background-color: #efefef;
   border: 1px solid #ddd;
@@ -13,12 +28,4 @@ paper-fab {
   right: 10px;
   bottom: 10px;
   position: absolute;
-}
-
-.due {
-  float:right;
-  text-transform: uppercase;
-  color: gray;
-  padding: 5px;
-  font-size: 0.8em;
 }

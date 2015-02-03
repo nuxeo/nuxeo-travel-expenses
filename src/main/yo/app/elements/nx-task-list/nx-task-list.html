@@ -35,6 +35,10 @@
             <div flex>
               {{model.name | i18n}}
             </div>
+            <div class="due">
+              <core-icon icon="schedule"></core-icon>
+              {{model.dueDate | date}}
+            </div>
             <core-icon-button icon="delete" style="float:right" on-tap="{{deleteWorkflow}}"></core-icon-button>
           </core-item>
         </template>
