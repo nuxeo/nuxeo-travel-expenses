@@ -17,7 +17,7 @@
 
       <content></content>
 
-      <core-field>
+      <core-field class="actors">
         <core-icon icon="group-work" title="[['wf.actors' | i18n]]"></core-icon>
         <ul>
           <template repeat="{{actor in task.actors}}">
@@ -26,12 +26,12 @@
         </ul>
       </core-field>
 
-      <core-field>
+      <core-field class="dueData">
         <core-icon icon="alarm" title="[['wf.dueDate' | i18n]]"></core-icon>
         <span>{{task.dueDate | date}}</span>
       </core-field>
 
-      <core-field>
+      <core-field class="directive">
         <core-icon icon="flag" title="[['wf.directive' | i18n]]"></core-icon>
         <span>{{task.directive | i18n}}</span>
       </core-field>
@@ -40,7 +40,7 @@
 
     <core-toolbar>
       <template repeat="{{action in task.taskInfo.taskActions}}">
-        <paper-button on-tap="{{callAction}}" raised>[[action.label | i18n]]</paper-button>
+        <paper-button data-action="[[action.name]]" on-tap="{{callAction}}" raised>[[action.label | i18n]]</paper-button>
       </template>
     </core-toolbar>
 
