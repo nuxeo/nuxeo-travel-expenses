@@ -169,11 +169,12 @@ module.exports = function (grunt) {
     vulcanize: {
       default: {
         options: {
-          strip: true
+          strip: true,
+          inline: true
         },
         files: {
           '<%= yeoman.dist %>/elements/elements.vulcanized.html': [
-            '<%= yeoman.dist %>/elements/elements.html'
+            '<%= yeoman.app %>/elements/elements.html'
           ]
         }
       }
@@ -233,8 +234,7 @@ module.exports = function (grunt) {
             '*.html',
             'elements/**',
             '!elements/**/*.css',
-            'images/{,*/}*.{webp,gif}',
-            'bower_components/**'
+            'images/{,*/}*.{webp,gif}'
           ]
         }]
       },
