@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^2.0.0"
+  },
+  "resolutions": {
+    "webcomponentsjs": "0.6.3"
   }
 }
