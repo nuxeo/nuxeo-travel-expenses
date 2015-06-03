@@ -1,11 +1,36 @@
 <?xml version="1.0"?>
-<project name="Grunt build" default="build" basedir=".">
+<project name="Nuxeo Travel Expenses" default="build" basedir=".">
 
-  <target name="init" description="Download all node and web dependencies">
-    <exec executable="npm" failonerror="true">
+  <!-- set executable names based on OS family -->
+  <condition property="cmd.npm" value="npm.cmd" else="npm">
+    <os family="windows"/>
+  </condition>
+  <condition property="cmd.bower" value="bower.cmd" else="bower">
+    <os family="windows"/>
+  </condition>
+  <condition property="cmd.gulp" value="gulp.cmd" else="gulp">
+    <os family="windows"/>
+  </condition>
+
+  <target name="clean-cache" description="Clean npm and bower cache"
+          unless="skipCleanCache">
+    <delete dir="node_modules" failonerror="true" />
+    <delete dir="app/bower_components" failonerror="true" />
+    <exec executable="${cmd.npm}" failonerror="true">
+      <arg value="cache" />
+      <arg value="clean" />
+    </exec>
+    <exec executable="${cmd.bower}" failonerror="true">
+      <arg value="cache" />
+      <arg value="clean" />
+    </exec>
+  </target>
+
+  <target name="init" description="Download all node and web dependencies" depends="clean-cache">
+    <exec executable="${cmd.npm}" failonerror="true">
       <arg value="install" />
     </exec>
-    <exec executable="bower" failonerror="true">
+    <exec executable="${cmd.bower}" failonerror="true">
       <arg value="install" />
     </exec>
   </target>
@@ -23,7 +48,7 @@
   </target>
   <target name="build-skip-tests" if="skipTests">
     <exec executable="grunt" failonerror="true">
-      <arg value="build-skip-tests" />
+      <arg value="build" />
     </exec>
   </target>
 

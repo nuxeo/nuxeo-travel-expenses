@@ -1,7 +1,5 @@
 'use strict';
 var LIVERELOAD_PORT = 35729;
-var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
-var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 var mountFolder = function (dir) {
   return require('serve-static')(require('path').resolve(dir));
 };
@@ -17,7 +15,6 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
-  grunt.loadNpmTasks('web-component-tester');
 
   // configurable paths
   var yeomanConfig = {
@@ -95,8 +92,8 @@ module.exports = function (grunt) {
         options: {
           middleware: function () {
             return [
-              proxySnippet,
-              lrSnippet,
+              require('grunt-connect-proxy/lib/utils').proxyRequest,
+              require('connect-livereload')({port: LIVERELOAD_PORT}),
               mountFolder('.tmp'),
               mountFolder(yeomanConfig.app)
             ];
@@ -246,44 +243,6 @@ module.exports = function (grunt) {
           src: ['{styles,elements}/{,*/}*.css']
         }]
       }
-    },
-    'wct-test': {
-      options: {
-        root: '<%= yeoman.app %>',
-        plugins: {
-          serveStatic: {
-            middleware: function() {
-              return mountFolder('.tmp');
-            }
-          }
-        }
-      },
-      local: {
-        options: {remote: false}
-      },
-      remote: {
-        options: {remote: true}
-      }
-    },
-    // See this tutorial if you'd like to run PageSpeed
-    // against localhost: http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/
-    pagespeed: {
-      options: {
-        // By default, we use the PageSpeed Insights
-        // free (no API key) tier. You can use a Google
-        // Developer API key if you have one. See
-        // http://goo.gl/RkN0vE for info
-        nokey: true
-      },
-      // Update `url` below to the public URL for your site
-      mobile: {
-        options: {
-          url: "https://developers.google.com/web/fundamentals/",
-          locale: "en_GB",
-          strategy: "mobile",
-          threshold: 80
-        }
-      }
     }
   });
 
@@ -307,10 +266,6 @@ module.exports = function (grunt) {
       'watch'
     ]);
   });
-
-  grunt.registerTask('test', ['wct-test:local']);
-  grunt.registerTask('test:browser', ['connect:test']);
-  grunt.registerTask('test:remote', ['wct-test:remote']);
 
   grunt.registerTask('build', [
     'clean:dist',
