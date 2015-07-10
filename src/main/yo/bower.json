@@ -6,7 +6,7 @@
     "paper-elements": "Polymer/paper-elements#^0.5.1",
     "polymer": "Polymer/polymer#^0.5.1",
     "flatiron-director": "PolymerLabs/flatiron-director#~0.5.0",
-    "nuxeo-elements": "nuxeo/nuxeo-elements#master"
+    "nuxeo-elements": "nuxeo/nuxeo-elements#polymer-0.5"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^2.0.0"
