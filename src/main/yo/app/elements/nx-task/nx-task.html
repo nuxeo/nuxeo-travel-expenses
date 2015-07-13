@@ -1,67 +1,68 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<!--
-<link rel="import" href="../../bower_components/nuxeo-elements/nx-widgets.html">
-<link rel="import" href="../../bower_components/nuxeo-elements/nx-layout.html">
--->
-<link rel="import" href="../../bower_components/core-icon/core-icon.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<dom-module id="nx-task">
 
-<polymer-element name="nx-task" attributes="task" vertical layou>
+  <link rel="import" type="css" href="nx-task.css">
+
   <template>
-    <link rel="stylesheet" href="nx-task.css">
 
     <!-- task resource -->
-    <nx-resource id="task" path="/task/{{task.id}}/{{action}}" data="{{task}}"></nx-resource>
+    <nx-resource id="task" path="[[actionPath(task, action)]]" data="{{task}}" headers='"{\"Content-Type\": \"application/json\"}"'></nx-resource>
 
-    <div class="content">
+    <div>
 
       <content></content>
 
-      <core-field class="actors">
-        <core-icon icon="group-work" title="[['wf.actors' | i18n]]"></core-icon>
+      <paper-icon-item class="field actors">
+        <iron-icon icon="group-work" title="[[i18n('wf.actors')]]" item-icon></iron-icon>
         <ul>
-          <template repeat="{{actor in task.actors}}">
-            <li>{{actor.id}}</li>
+          <template is="dom-repeat" items="[[task.actors]]" as="actor">
+            <li>[[actor.id]]</li>
           </template>
         </ul>
-      </core-field>
+      </paper-icon-item>
 
-      <core-field class="dueData">
-        <core-icon icon="alarm" title="[['wf.dueDate' | i18n]]"></core-icon>
-        <span>{{task.dueDate | date}}</span>
-      </core-field>
+      <paper-icon-item class="field dueData">
+        <iron-icon icon="alarm" title="[[i18n('wf.dueDate')]]" item-icon></iron-icon>
+        <span>[[formatDate(task.dueDate)]]</span>
+      </paper-icon-item>
 
-      <core-field class="directive">
-        <core-icon icon="flag" title="[['wf.directive' | i18n]]"></core-icon>
-        <span>{{task.directive | i18n}}</span>
-      </core-field>
+      <paper-icon-item class="field directive">
+        <iron-icon icon="flag" title="[[i18n('wf.directive')]]" item-icon></iron-icon>
+        <span>[[i18n(task.directive)]]</span>
+      </paper-icon-item>
 
     </div>
 
-    <core-toolbar>
-      <template repeat="{{action in task.taskInfo.taskActions}}">
-        <paper-button data-action="[[action.name]]" on-tap="{{callAction}}" raised>[[action.label | i18n]]</paper-button>
+    <paper-toolbar>
+      <template is="dom-repeat" items="[[task.taskInfo.taskActions]]" as="action">
+        <paper-button on-tap="callAction" raised>[[i18n(action.label)]]</paper-button>
       </template>
-    </core-toolbar>
+    </paper-toolbar>
 
     <paper-toast id="errorMessage" text="Failed to invoke [[action]]"></paper-toast>
   </template>
-  <script>
-    (function () {
-      Polymer({
+</dom-module>
+<script>
+  (function () {
+    Polymer({
+      is: 'nx-task',
 
-        callAction: function (event, detail, sender) {
-          this.action = sender.templateInstance.model.action.name;
-          this.$.task
-            .put()
-            .then(function (data) {
-              this.fire("action", this.action);
-            }.bind(this))
-            .catch(function (error) {
-              this.$.errorMessage.show();
-            }.bind(this));
-        }
-      });
-    })();
-  </script>
-</polymer-element>
+      properties: { task: { notify: true } },
+
+      callAction: function (event) {
+        this.action = event.model.action.name;
+        this.$.task
+          .put()
+          .then(function (data) {
+            this.fire('action', this.action);
+          }.bind(this))
+          .catch(function (error) {
+            this.$.errorMessage.show();
+          }.bind(this));
+      },
+
+      actionPath: function (task, action) {
+        return (task) ? '/task/' + task.id + '/' + action : '';
+      }
+    });
+  }());
+</script>

@@ -11,13 +11,12 @@
 }
 
 .state {
-  float:right;
   text-transform: uppercase;
   color: gray;
   padding: 5px;
 }
 
-core-item {
+.item {
   background-color: #efefef;
   border: 1px solid #ddd;
   padding: 10px;

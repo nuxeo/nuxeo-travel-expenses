@@ -1,8 +1,9 @@
 :host {
   display: block;
+  @apply(--layout-vertical);
 }
 
-core-item {
+.item {
   background-color: #efefef;
   border: 1px solid #ddd;
   padding: 10px;
@@ -13,12 +14,4 @@ paper-fab {
   right: 10px;
   bottom: 10px;
   position: absolute;
-}
-
-.due {
-  float:right;
-  text-transform: uppercase;
-  color: gray;
-  padding: 5px;
-  font-size: 0.8em;
 }

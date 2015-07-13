@@ -1,6 +1,6 @@
 {
-  "name": "yo",
-  "version": "0.0.0",
+  "name": "nuxeo-travel-expenses",
+  "version": "0.2.0",
   "dependencies": {},
   "devDependencies": {
     "connect-livereload": "^0.5.2",

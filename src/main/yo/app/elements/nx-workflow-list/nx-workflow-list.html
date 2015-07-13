@@ -1,34 +1,26 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/core-animated-pages/core-animated-pages.html">
-<link rel="import" href="../../bower_components/core-field/core-field.html">
-<link rel="import" href="../../bower_components/core-icon-button/core-icon-button.html">
-<link rel="import" href="../../bower_components/core-item/core-item.html">
-<link rel="import" href="../../bower_components/core-list/core-list.html">
-<link rel="import" href="../../bower_components/nuxeo-elements/nx-resource.html">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<dom-module id="nx-workflow-list">
 
-<polymer-element name="nx-workflow-list" attributes="workflowModel" layout vertical>
+  <link rel="import" type="css" href="nx-workflow-list.css">
+
   <template>
     <link rel="stylesheet" href="nx-workflow-list.css">
 
     <!-- The workflow instance resource -->
-    <nx-resource id="workflow" path="/workflow/{{workflow.id}}"></nx-resource>
-
+    <nx-resource id="workflow"></nx-resource>
 
     <div id="list">
+
       <!-- List of workflow instances -->
-      <core-list id="list" data="{{workflows}}" on-core-activate="{{select}}">
+      <iron-list id="list" items="[[workflows]]" as="item" on-iron-select="select">
         <template>
-          <core-item icon="group-work" class="item">
-            <div flex>
-              {{model.title | i18n}}
-            </div>
-            <div class="state">{{model.state}}</div>
-            <core-icon-button icon="delete" style="float:right" on-tap="{{deleteWorkflow}}"></core-icon-button>
-          </core-item>
+          <paper-icon-item class="item">
+            <iron-icon icon="group-work" item-icon></iron-icon>
+            <span class="flex">[[i18n(item.title)]]</span>
+            <div class="state">[[item.state]]</div>
+            <paper-icon-button icon="delete" style="float:right" on-tap="deleteWorkflow"></paper-icon-button>
+          </paper-icon-item>
         </template>
-      </core-list>
+      </iron-list>
     </div>
 
     <paper-fab icon="add" title="Add" on-tap="{{newEntry}}"></paper-fab>
@@ -36,57 +28,71 @@
     <paper-toast id="createdMessage" text="Started workflow."></paper-toast>
     <paper-toast id="deletedMessage" text="Deleted workflow."></paper-toast>
   </template>
-  <script>
-    (function () {
-      Polymer({
+</dom-module>
+<script>
+  (function () {
+    Polymer({
+      is: 'nx-workflow-list',
 
-        workflows: null,
-        workflow: null,
-
-        ready: function () {
-          this.updateWorkflows();
+      properties: {
+        workflow: {
+          notify: true,
+          observer: 'workflowChanged'
         },
-
-        select: function (e, detail) {
-          this.workflow = detail.data;
+        workflowModel: {
+          type: String,
+          notify: true
         },
+        workflows: { value: [] }
+      },
 
+      ready: function () {
+        this.workflowChanged();
+        this.updateWorkflows();
+      },
 
-        newEntry: function () {
-          this.workflow = {
-            'entity-type': 'workflow',
-            workflowModelName: this.workflowModel
-          };
-          this.$.workflow.post(this.workflow)
-            // get the task for the new workflow instance
-            .then(function (response) {
-              this.$.createdMessage.show();
-              this.updateWorkflows();
-            }.bind(this))
+      select: function (e, detail) {
+        this.workflow = detail.data;
+      },
 
-        },
+      newEntry: function () {
+        this.workflow = {
+          'entity-type': 'workflow',
+          workflowModelName: this.workflowModel
+        };
+        this.$.workflow.post(this.workflow)
+          // get the task for the new workflow instance
+          .then(function (response) {
+            this.$.createdMessage.show();
+            this.updateWorkflows();
+        }.bind(this));
+      },
 
-        updateWorkflows: function () {
-          this.workflow = null;
-          this.$.workflow.get().then(function (data) {
-            this.workflows = data.entries;
+      updateWorkflows: function () {
+        this.workflow = null;
+        this.$.workflow.get().then(function (data) {
+          this.workflows = data.entries;
+        }.bind(this))
+          .catch(function (e) {
+            console.debug(e);
+          });
+      },
+
+      deleteWorkflow: function (e) {
+        var doDelete = window.confirm('Are you sure you want to delete ?');
+        if (doDelete) {
+          this.workflow = e.model.item;
+          this.$.workflow.remove().then(function () {
+            this.$.deletedMessage.show();
+            this.updateWorkflows();
           }.bind(this));
-        },
-
-        deleteWorkflow: function (e, detail, sender) {
-          e.preventDefault();
-          e.stopPropagation();
-          var doDelete = window.confirm("Are you sure you want to delete ?");
-          if (doDelete) {
-            this.workflow = sender.templateInstance.model.model;
-            this.$.workflow.remove().then(function () {
-              this.$.deletedMessage.show();
-              this.updateWorkflows();
-            }.bind(this));
-          }
-          return false;
         }
-      });
-    })();
-  </script>
-</polymer-element>
+        return false;
+      },
+
+      workflowChanged: function () {
+        this.$.workflow.path = '/workflow/' + ((this.workflow) ? this.workflow.id : '');
+      }
+    });
+  }());
+</script>
