@@ -97,6 +97,8 @@
       taskChanged: function (task) {
         if (task) {
           this.$.task.path = '/task/' + task.id;
+        } else {
+          this.updateTasks();
         }
         this.page = (task) ? 1 : 0;
       },

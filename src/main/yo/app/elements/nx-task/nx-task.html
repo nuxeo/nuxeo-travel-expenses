@@ -34,7 +34,7 @@
 
     <paper-toolbar>
       <template is="dom-repeat" items="[[task.taskInfo.taskActions]]" as="action">
-        <paper-button on-tap="callAction" raised>[[i18n(action.label)]]</paper-button>
+        <paper-button on-tap="callAction" data-action$="[[action.name]]" raised>[[i18n(action.label)]]</paper-button>
       </template>
     </paper-toolbar>
 

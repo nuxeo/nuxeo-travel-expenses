@@ -42,29 +42,32 @@
     return task && TASKS[key] === task.nodeName;
   };
 
-  app.formatDate = Polymer.Base.formatDate = function (str) {
-    return (str) ? new Date(str).toLocaleString() : '';
-  };
+  HTMLImports.whenReady(function() {
+    app.formatDate = Polymer.Base.formatDate = function (str) {
+      return (str) ? new Date(str).toLocaleString() : '';
+    };
 
-  app.i18n = Polymer.Base.i18n = function (key) {
-    return {
-        'wf.actors': 'Actors',
-        'wf.dueDate': 'Due date',
-        'wf.directive': 'Directive,',
-        'wf.travelExpenseValidation': 'Travel expense validation',
-        'wf.travelExpenses.create': 'Create expense',
-        'wf.travelExpenses.validate': 'Validate expense',
-        'wf.travelExpenses.accountancy': 'Account for expense',
-        'wf.travelExpenses.submitExpense': 'Submit for validation',
-        'wf.travelExpenses.customerCode': 'Set customer code',
-        'wf.travelExpenses.submit': 'Submit',
-        'wf.travelExpenses.cancel': 'Cancel',
-        'wf.travelExpenses.done': 'Done',
-        'wf.travelExpenses.label': 'Label',
-        'wf.travelExpenses.amount': 'Amount',
-        'wf.travelExpenses.description': 'Description',
-        'wf.travelExpenses.nature': 'Nature',
-        'wf.travelExpenses.file': 'File'
-      }[key] || key;
-  };
+    app.i18n = Polymer.Base.i18n = function (key) {
+      return {
+          'wf.actors': 'Actors',
+          'wf.dueDate': 'Due date',
+          'wf.directive': 'Directive,',
+          'wf.travelExpenseValidation': 'Travel expense validation',
+          'wf.travelExpenses.create': 'Create expense',
+          'wf.travelExpenses.validate': 'Validate expense',
+          'wf.travelExpenses.accountancy': 'Account for expense',
+          'wf.travelExpenses.submitExpense': 'Submit for validation',
+          'wf.travelExpenses.customerCode': 'Set customer code',
+          'wf.travelExpenses.submit': 'Submit',
+          'wf.travelExpenses.cancel': 'Cancel',
+          'wf.travelExpenses.done': 'Done',
+          'wf.travelExpenses.label': 'Label',
+          'wf.travelExpenses.amount': 'Amount',
+          'wf.travelExpenses.description': 'Description',
+          'wf.travelExpenses.nature': 'Nature',
+          'wf.travelExpenses.file': 'File'
+        }[key] || key;
+    };
+  });
+
 })(document);
