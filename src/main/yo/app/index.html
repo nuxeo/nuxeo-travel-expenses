@@ -71,6 +71,10 @@
               <option value="hotel">Hotel</option>
             </select>
           </paper-icon-item>
+          <paper-icon-item>
+            <iron-icon icon="attachment" item-icon></iron-icon>
+            <nx-file value="{{task.variables.file}}"></nx-file>
+          </paper-icon-item>
         </template>
 
         <!-- Accept / Reject -->
@@ -91,6 +95,10 @@
           <paper-icon-item>
             <iron-icon icon="store" title="[[i18n('wf.travelExpenses.nature')]]" item-icon></iron-icon>
             <span>[[task.variables.nature]]</span>
+          </paper-icon-item>
+          <paper-icon-item>
+            <iron-icon icon="attachment" title="[[i18n('wf.travelExpenses.file')]]" item-icon></iron-icon>
+            <a href="[[task.variables.file.url]]" target="_blank">[[task.variables.file.name]]</a></span>
           </paper-icon-item>
         </template>
 
@@ -116,6 +124,10 @@
           <paper-icon-item>
             <iron-icon icon="label" item-icon></iron-icon>
             <input value="{{task.variables.customer_code}}" placeholder="Customer code" required>
+          </paper-icon-item>
+          <paper-icon-item>
+            <iron-icon icon="attachment" title="[[i18n('wf.travelExpenses.file')]]" item-icon></iron-icon>
+            <a href="[[task.variables.file.url]]" target="_blank">[[task.variables.file.name]]</a></span>
           </paper-icon-item>
         </template>
       </nx-task-list>
