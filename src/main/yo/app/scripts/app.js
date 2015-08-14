@@ -65,6 +65,7 @@
           'wf.travelExpenses.amount': 'Amount',
           'wf.travelExpenses.description': 'Description',
           'wf.travelExpenses.nature': 'Nature',
+          'wf.travelExpenses.department': 'Department',
           'wf.travelExpenses.file': 'File'
         }[key] || key;
     };

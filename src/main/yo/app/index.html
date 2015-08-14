@@ -64,6 +64,17 @@
                    required></core-input>
           </paper-icon-item>
           <paper-icon-item>
+            <iron-icon icon="work" item-icon></iron-icon>
+            <select value="{{task.variables.department::change}}">
+              <option value="it">IT</option>
+              <option value="financial">Financial</option>
+              <option value="marketing">Marketing</option>
+              <option value="hr">HR</option>
+              <option value="sales">Sales</option>
+              <option value="other">Other</option>
+            </select>
+          </paper-icon-item>
+          <paper-icon-item>
             <iron-icon icon="store" item-icon></iron-icon>
             <select value="{{task.variables.nature::change}}">
               <option value="transportation">Transportation</option>
@@ -93,6 +104,10 @@
             <span>[[task.variables.description]]</span>
           </paper-icon-item>
           <paper-icon-item>
+            <iron-icon icon="work" title="[[i18n('wf.travelExpenses.department')]]" item-icon></iron-icon>
+            <span>[[task.variables.department]]</span>
+          </paper-icon-item>
+          <paper-icon-item>
             <iron-icon icon="store" title="[[i18n('wf.travelExpenses.nature')]]" item-icon></iron-icon>
             <span>[[task.variables.nature]]</span>
           </paper-icon-item>
@@ -116,6 +131,10 @@
           <paper-icon-item>
             <iron-icon icon="description" item-icon></iron-icon>
             <span>[[task.variables.description]]</span>
+          </paper-icon-item>
+          <paper-icon-item>
+            <iron-icon icon="work" item-icon></iron-icon>
+            <span>[[task.variables.department]]</span>
           </paper-icon-item>
           <paper-icon-item>
             <iron-icon icon="store" item-icon></iron-icon>

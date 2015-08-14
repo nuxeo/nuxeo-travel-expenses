@@ -4,3 +4,6 @@ dist
 test/temp
 bower_components
 .tmp
+.classpath
+.project
+.settings/
