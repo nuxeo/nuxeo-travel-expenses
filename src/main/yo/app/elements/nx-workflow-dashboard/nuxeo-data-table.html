@@ -1,0 +1,125 @@
+<!--
+(C) Copyright 2015 Nuxeo SA (http://nuxeo.com/) and contributors.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the GNU Lesser General Public License
+(LGPL) version 2.1 which accompanies this distribution, and is available at
+http://www.gnu.org/licenses/lgpl.html
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+Contributors:
+  Nelson Silva <nsilva@nuxeo.com>
+-->
+
+<!-- based on sweet-material-table -->
+<dom-module id="nuxeo-data-table">
+
+  <link rel="import" type="css" href="nuxeo-data-table.css"/>
+
+  <template>
+
+    <div id="table">
+      <div class="thead">
+        <div class="tr horizontal layout">
+          <template is="dom-repeat" items="{{columns}}" as="column">
+            <div class="flex th" data-column$="[[column.key]]" on-click="_sortColumn">
+
+              <iron-icon class="sorted-descending"
+                         icon="icons:arrow-drop-down"></iron-icon>
+
+              <iron-icon class="sorted-ascending"
+                         icon="icons:arrow-drop-up"></iron-icon>
+
+              <span>[[column.title]]</span>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div class="tbody">
+        <template is="dom-repeat" items="{{data}}" as="instance">
+          <div class="tr horizontal layout" index="[[index]]">
+            <template is="dom-repeat" items="{{columns}}" as="column">
+              <div class="flex td">[[_value(instance, column)]]</div>
+            </template>
+          </div>
+        </template>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+      is: 'nuxeo-data-table',
+      properties: {
+        data: {
+          type: Array,
+          notify: true
+        },
+        columns: {
+          type: Array,
+          notify: true,
+          value: function () {
+            return [];
+          }
+        },
+        sortColumn: {
+          type: String,
+          notify: true
+        },
+        sortDirection: {
+          type: String,
+          notify: true
+        }
+      },
+      observers: [
+        '_sortDirectionChanged(sortColumn,sortDirection)'
+      ],
+
+      _value: function (row, column) {
+        if (row && column) {
+          return row[column.key];
+        }
+      },
+
+      _sortColumn: function (e) {
+        var column = e.currentTarget.attributes['data-column'].value;
+
+        if (this.sortColumn === column) {
+          if (this.sortDirection === 'ascending') {
+            this.sortColumn = null;
+            this.sortDirection = null;
+          } else {
+            this.sortDirection = 'ascending';
+          }
+        } else {
+          this.sortColumn = column;
+          this.sortDirection = 'descending';
+        }
+      },
+      _sortDirectionChanged: function (sortColumn, sortDirection) {
+        // Clear the classes on the ths
+        var tableHeaders = this.$.table.querySelectorAll('.thead .th');
+
+        for (var i = 0, ii = tableHeaders.length; i < ii; i++) {
+          var th = tableHeaders[i];
+          th.classList.remove('sorted-ascending');
+          th.classList.remove('sorted-descending');
+
+          if (this.sortDirection
+            && this.sortColumn
+            && th.attributes['data-column'] && th.attributes['data-column'].value === this.sortColumn) {
+            th.classList.add('sorted-' + this.sortDirection);
+          }
+        }
+      }
+
+    })
+  </script>
+</dom-module>

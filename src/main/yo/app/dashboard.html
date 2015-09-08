@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuxeo Travel Expenses - Dashboard</title>
+
+  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:vulcanized elements/elements.vulcanized.html -->
+  <link rel="import" href="elements/elements.html">
+  <!-- endbuild-->
+</head>
+
+<body unresolved class="fullbleed">
+<template is="dom-bind">
+
+  <nx-connection url="http://192.168.1.7:8080/nuxeo" username="Administrator" password="Administrator"></nx-connection>
+
+  <paper-header-panel>
+    <paper-toolbar light>
+      <div>
+        <img class="logo" src="images/nuxeo.png" alt="Nuxeo">
+      </div>
+      <div style="position: absolute; top: 20px; right: 100px">
+        <input type="date" value="{{startDate::change}}">
+        <input type="date" value="{{endDate::change}}">
+      </div>
+    </paper-toolbar>
+
+    <nx-workflow-dashboard start-date="[[startDate]]" end-date="[[endDate]]"></nx-workflow-dashboard>
+
+  </paper-header-panel>
+
+</template>
+
+<!-- build:js vendor/jquery.js -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- endbuild-->
+</body>
+
+<script>
+  var t = document.querySelector('template');
+  t.startDate = "2015-08-16";
+  t.endDate = "2015-08-20";
+</script>
+</html>
