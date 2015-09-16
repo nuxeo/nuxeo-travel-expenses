@@ -23,7 +23,7 @@ Contributors:
     <!-- Example 1: Workflow duration -->
     <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
                             grouped-by="variables.department"
-                            metrics="avg(duration)"
+                            metrics="avg(timeSinceWfStarted)"
                             start-date="[[startDate]]" end-date="[[endDate]]"
                             data="{{durations}}">
     </nuxeo-workflow-metrics>
@@ -55,7 +55,7 @@ Contributors:
     <!-- Example 3: Workflow instance count per user per date -->
     <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
                             task="wf.travelExpenses.create"
-                            grouped-by="user"
+                            grouped-by="taskActor"
                             with-date-intervals="day"
                             start-date="[[startDate]]" end-date="[[endDate]]"
                             data="{{instancesCountPerUserPerDay}}">
@@ -85,7 +85,7 @@ Contributors:
     <!-- Example 5: Sum of amount per user per day -->
     <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
                             task="wf.travelExpenses.create"
-                            grouped-by="user"
+                            grouped-by="taskActor"
                             with-date-intervals="day"
                             metrics="sum(workflowVariables.amount)"
                             start-date="[[startDate]]" end-date="[[endDate]]"
@@ -105,8 +105,8 @@ Contributors:
     <!-- Example 6: Average validation time per user -->
     <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
                             task="Accept/ Reject"
-                            grouped-by="user"
-                            metrics="avg(duration)"
+                            grouped-by="taskActor"
+                            metrics="avg(timeSinceWfStarted)"
                             start-date="[[startDate]]" end-date="[[endDate]]"
                             data="{{validationTimePerUser}}">
     </nuxeo-workflow-metrics>
