@@ -5,4 +5,5 @@ Bundle-Version: 0.0.1
 Bundle-Name: nuxeo travel expenses sample
 Bundle-ManifestVersion: 1
 Bundle-SymbolicName: org.nuxeo.sample.travelExpenses;singleton:=true
-Nuxeo-Component: OSGI-INF/authentication-contrib.xml
+Nuxeo-Component: OSGI-INF/authentication-contrib.xml,
+ OSGI-INF/actions-contrib.xml

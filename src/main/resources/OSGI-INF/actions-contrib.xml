@@ -1,0 +1,26 @@
+<component name="org.nuxeo.sample.travelExpenses.actions.contrib">
+
+  <extension target="org.nuxeo.ecm.platform.actions.ActionService"
+             point="actions">
+
+    <action id="TAB_TRAVEL_EXPENSES_WF_ANALYTICS" link="/incl/tabs/travel_expenses_workflow_analytics.xhtml"
+            order="5" label="Analytics" icon="/icons/file.gif" type="rest_document_link">
+      <category>VIEW_ACTION_LIST</category>
+      <filter-id>isRoute</filter-id>
+      <filter-id>isTravelExpensesWorkflow</filter-id>
+    </action>
+
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.actions.ActionService"
+             point="filters">
+
+    <filter id="isTravelExpensesWorkflow">
+      <rule grant="true">
+        <condition>#{currentDocument.getTitle() == 'wf.travelExpenseValidation'}</condition>
+      </rule>
+    </filter>
+
+  </extension>
+
+</component>
