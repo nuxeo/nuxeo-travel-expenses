@@ -24,12 +24,14 @@ paper-card /deep/ paper-material {
   height: 450px;
 }
 
-paper-card /deep/ .header {
-  height: 30px;
+paper-card /deep/ .header .title-text {
+  line-height: 1.2em;
 }
 
 paper-card /deep/ canvas {
   margin-bottom: 15px;
+  max-height: 250px;
+  max-width: 500px;
 }
 
 sweet-material-table {
@@ -77,34 +79,16 @@ chart-line /deep/ .chart-legend li span {
   paper-card {
     width: 50%;
   }
-
-  chart-bar,
-  chart-line,
-  chart-pie {
-    width: 85%;
-  }
 }
 
 @media (max-width: 1024px) {
   paper-card {
     width: 100%;
   }
-
-  chart-bar,
-  chart-line,
-  chart-pie {
-    width: 60%;
-  }
 }
 
 @media (max-width: 767px) {
   paper-card {
     width: 100%;
-  }
-
-  chart-bar,
-  chart-line,
-  chart-pie {
-    width: 85%;
   }
 }
