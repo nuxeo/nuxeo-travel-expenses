@@ -34,15 +34,6 @@ paper-card /deep/ canvas {
   max-width: 500px;
 }
 
-sweet-material-table {
-  margin-top: 10px;
-}
-
-sweet-material-table /deep/ #tableHeader,
-sweet-material-table /deep/ #tableFooter {
-  display: none;
-}
-
 chart-bar,
 chart-line,
 chart-pie {

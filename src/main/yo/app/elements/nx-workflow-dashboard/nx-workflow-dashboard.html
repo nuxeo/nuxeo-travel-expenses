@@ -21,12 +21,12 @@ Contributors:
   <template>
 
     <!-- Example 1: Workflow duration -->
-    <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
-                            grouped-by="variables.department"
-                            metrics="avg(timeSinceWfStarted)"
-                            start-date="[[startDate]]" end-date="[[endDate]]"
-                            data="{{durations}}">
-    </nuxeo-workflow-metrics>
+    <nuxeo-workflow-data workflow="TravelExpenseValidation"
+                         grouped-by="variables.department"
+                         metrics="avg(timeSinceWfStarted)"
+                         start-date="[[startDate]]" end-date="[[endDate]]"
+                         data="{{durations}}">
+    </nuxeo-workflow-data>
 
     <paper-card heading="Workflow Length" elevation="2">
       <div class="card-content">
@@ -37,11 +37,11 @@ Contributors:
     </paper-card>
 
     <!-- Example 2: Workflow instance count per amount -->
-    <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
-                            with-ranges='{"variables.amount":[{"key": "<= 1500", "to": 1500 },{"key": "> 1500", "from": 1500}]}'
-                            start-date="[[startDate]]" end-date="[[endDate]]"
-                            data="{{instancesCountPerAmount}}">
-    </nuxeo-workflow-metrics>
+    <nuxeo-workflow-data workflow="TravelExpenseValidation"
+                         with-ranges='{"variables.amount":[{"key": "<= 1500", "to": 1500 },{"key": "> 1500", "from": 1500}]}'
+                         start-date="[[startDate]]" end-date="[[endDate]]"
+                         data="{{instancesCountPerAmount}}">
+    </nuxeo-workflow-data>
 
     <paper-card heading="Expenses Cost Repartitions" elevation="2">
       <div class="card-content">
@@ -53,13 +53,13 @@ Contributors:
     </paper-card>
 
     <!-- Example 3: Workflow instance count per user per date -->
-    <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
-                            task="wf.travelExpenses.create"
-                            grouped-by="taskActor"
-                            with-date-intervals="day"
-                            start-date="[[startDate]]" end-date="[[endDate]]"
-                            data="{{instancesCountPerUserPerDay}}">
-    </nuxeo-workflow-metrics>
+    <nuxeo-workflow-data workflow="TravelExpenseValidation"
+                         task="wf.travelExpenses.create"
+                         grouped-by="taskActor"
+                         with-date-intervals="day"
+                         start-date="[[startDate]]" end-date="[[endDate]]"
+                         data="{{instancesCountPerUserPerDay}}">
+    </nuxeo-workflow-data>
 
     <paper-card heading="Number of requests" elevation="2">
       <div class="card-content">
@@ -83,14 +83,14 @@ Contributors:
     </paper-card>
 
     <!-- Example 5: Sum of amount per user per day -->
-    <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
-                            task="wf.travelExpenses.create"
-                            grouped-by="taskActor"
-                            with-date-intervals="day"
-                            metrics="sum(workflowVariables.amount)"
-                            start-date="[[startDate]]" end-date="[[endDate]]"
-                            data="{{amountPerUserPerDay}}">
-    </nuxeo-workflow-metrics>
+    <nuxeo-workflow-data workflow="TravelExpenseValidation"
+                         task="wf.travelExpenses.create"
+                         grouped-by="taskActor"
+                         with-date-intervals="day"
+                         metrics="sum(workflowVariables.amount)"
+                         start-date="[[startDate]]" end-date="[[endDate]]"
+                         data="{{amountPerUserPerDay}}">
+    </nuxeo-workflow-data>
 
     <paper-card heading="Top Requester (total amount)" elevation="2">
       <div class="card-content">
@@ -103,13 +103,13 @@ Contributors:
     </paper-card>
 
     <!-- Example 6: Average validation time per user -->
-    <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
-                            task="Accept/ Reject"
-                            grouped-by="taskActor"
-                            metrics="avg(timeSinceWfStarted)"
-                            start-date="[[startDate]]" end-date="[[endDate]]"
-                            data="{{validationTimePerUser}}">
-    </nuxeo-workflow-metrics>
+    <nuxeo-workflow-data workflow="TravelExpenseValidation"
+                         task="Accept/ Reject"
+                         grouped-by="taskActor"
+                         metrics="avg(timeSinceWfStarted)"
+                         start-date="[[startDate]]" end-date="[[endDate]]"
+                         data="{{validationTimePerUser}}">
+    </nuxeo-workflow-data>
 
     <paper-card heading="Average validation time per user" elevation="2">
       <div class="card-content">
@@ -120,12 +120,12 @@ Contributors:
     </paper-card>
 
     <!-- Example 7: Total number of actions triggered -->
-    <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
-                            task="Accept/ Reject"
-                            grouped-by="action"
-                            start-date="[[startDate]]" end-date="[[endDate]]"
-                            data="{{numberOfActions}}">
-    </nuxeo-workflow-metrics>
+    <nuxeo-workflow-data workflow="TravelExpenseValidation"
+                         task="Accept/ Reject"
+                         grouped-by="action"
+                         start-date="[[startDate]]" end-date="[[endDate]]"
+                         data="{{numberOfActions}}">
+    </nuxeo-workflow-data>
 
     <paper-card heading="Number of actions triggered" elevation="2">
       <div class="card-content">
@@ -137,12 +137,12 @@ Contributors:
     </paper-card>
 
     <!-- Example 8: Total number of actions by ‘department’ -->
-    <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
-                            task="Accept/ Reject"
-                            grouped-by="action,workflowVariables.department"
-                            start-date="[[startDate]]" end-date="[[endDate]]"
-                            data="{{numberOfActionsPerDepartment}}">
-    </nuxeo-workflow-metrics>
+    <nuxeo-workflow-data workflow="TravelExpenseValidation"
+                         task="Accept/ Reject"
+                         grouped-by="action,workflowVariables.department"
+                         start-date="[[startDate]]" end-date="[[endDate]]"
+                         data="{{numberOfActionsPerDepartment}}">
+    </nuxeo-workflow-data>
 
     <paper-card heading="Number of actions by department" elevation="2">
       <div class="card-content">
@@ -155,14 +155,14 @@ Contributors:
     </paper-card>
 
     <!-- Example 9: Sum of expense’s registered per department per day -->
-    <nuxeo-workflow-metrics workflow="TravelExpenseValidation"
-                            task="Accept/ Reject"
-                            grouped-by="workflowVariables.department"
-                            with-date-intervals="day"
-                            metrics="sum(workflowVariables.amount)"
-                            start-date="[[startDate]]" end-date="[[endDate]]"
-                            data="{{amountPerDepartmentPerDay}}">
-    </nuxeo-workflow-metrics>
+    <nuxeo-workflow-data workflow="TravelExpenseValidation"
+                         task="Accept/ Reject"
+                         grouped-by="workflowVariables.department"
+                         with-date-intervals="day"
+                         metrics="sum(workflowVariables.amount)"
+                         start-date="[[startDate]]" end-date="[[endDate]]"
+                         data="{{amountPerDepartmentPerDay}}">
+    </nuxeo-workflow-data>
 
     <paper-card heading="Sum of expenses registered per department per day" elevation="2">
       <div class="card-content">
