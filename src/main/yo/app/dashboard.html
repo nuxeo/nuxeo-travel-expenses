@@ -46,7 +46,8 @@
 
 <script>
   var t = document.querySelector('template');
-  t.startDate = "2015-08-16";
-  t.endDate = "2015-08-20";
+  var currentDate = moment();
+  t.endDate = currentDate.format("YYYY-MM-DD");
+  t.startDate = currentDate.subtract(7, 'days').format("YYYY-MM-DD");
 </script>
 </html>
