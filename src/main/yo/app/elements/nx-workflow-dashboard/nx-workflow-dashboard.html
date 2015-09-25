@@ -22,7 +22,7 @@ Contributors:
 
     <!-- Example 1: Workflow duration -->
     <nuxeo-workflow-data workflow="TravelExpenseValidation"
-                         grouped-by="variables.department"
+                         grouped-by="workflowVariables.department"
                          metrics="avg(timeSinceWfStarted)"
                          start-date="[[startDate]]" end-date="[[endDate]]"
                          data="{{durations}}">
@@ -38,7 +38,7 @@ Contributors:
 
     <!-- Example 2: Workflow instance count per amount -->
     <nuxeo-workflow-data workflow="TravelExpenseValidation"
-                         with-ranges='{"variables.amount":[{"key": "<= 1500", "to": 1500 },{"key": "> 1500", "from": 1500}]}'
+                         with-ranges='{"workflowVariables.amount":[{"key": "<= 1500", "to": 1500 },{"key": "> 1500", "from": 1500}]}'
                          start-date="[[startDate]]" end-date="[[endDate]]"
                          data="{{instancesCountPerAmount}}">
     </nuxeo-workflow-data>
