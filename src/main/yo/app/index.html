@@ -49,21 +49,21 @@
 
         <!-- Create -->
         <template is="dom-if" if="[[isStep('create',task)]]">
-          <paper-icon-item>
+          <div item>
             <iron-icon icon="label" item-icon></iron-icon>
             <input is="iron-input" bind-value="{{task.variables.label}}" placeholder="[[i18n('wf.travelExpenses.label')]]" required>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="credit-card" item-icon></iron-icon>
-            <input is="iron-input" bind-value="{{task.variables.amount}}" type="number" step="0.01" required></core-input>
+            <input is="iron-input" bind-value="{{task.variables.amount}}" type="number" step="0.01" required>
             <label>&euro;</label>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="description" item-icon></iron-icon>
             <input is="iron-input" bind-value="{{task.variables.description}}" placeholder="[[i18n('wf.travelExpenses.description')]]"
-                   required></core-input>
-          </paper-icon-item>
-          <paper-icon-item>
+                   required>
+          </div>
+          <div item>
             <iron-icon icon="work" item-icon></iron-icon>
             <select value="{{task.variables.department::change}}">
               <option value="it">IT</option>
@@ -73,81 +73,81 @@
               <option value="sales">Sales</option>
               <option value="other">Other</option>
             </select>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="store" item-icon></iron-icon>
             <select value="{{task.variables.expensenature::change}}">
               <option value="transportation">Transportation</option>
               <option value="lunch">Lunch</option>
               <option value="hotel">Hotel</option>
             </select>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="attachment" item-icon></iron-icon>
             <nx-file value="{{task.variables.file}}"></nx-file>
-          </paper-icon-item>
+          </div>
         </template>
 
         <!-- Accept / Reject -->
         <template is="dom-if" if="[[isStep('accept',task)]]">
-          <paper-icon-item>
+          <div item>
             <iron-icon icon="label" title="[[i18n('wf.travelExpenses.label')]]" item-icon></iron-icon>
             <span>[[task.variables.label]]</span>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="credit-card" title="[[i18n('wf.travelExpenses.amount')]]" item-icon></iron-icon>
             <span>[[task.variables.amount]]</span>
             <label>&euro;</label>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="description" title="[[i18n('wf.travelExpenses.description')]]" item-icon></iron-icon>
             <span>[[task.variables.description]]</span>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="work" title="[[i18n('wf.travelExpenses.department')]]" item-icon></iron-icon>
             <span>[[task.variables.department]]</span>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="store" title="[[i18n('wf.travelExpenses.nature')]]" item-icon></iron-icon>
             <span>[[task.variables.expensenature]]</span>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="attachment" title="[[i18n('wf.travelExpenses.file')]]" item-icon></iron-icon>
-            <a href="[[task.variables.file.url]]" target="_blank">[[task.variables.file.name]]</a></span>
-          </paper-icon-item>
+            <a href="[[task.variables.file.url]]" target="_blank">[[task.variables.file.name]]</a>
+          </div>
         </template>
 
         <!-- Accountancy -->
         <template is="dom-if" if="[[isStep('accountancy',task)]]">
-          <paper-icon-item>
+          <div item>
             <iron-icon icon="label" item-icon></iron-icon>
             <span>[[task.variables.label]]</span>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="credit-card" item-icon></iron-icon>
             <span>[[task.variables.amount]]</span>
             <label>&euro;</label>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="description" item-icon></iron-icon>
             <span>[[task.variables.description]]</span>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="work" item-icon></iron-icon>
             <span>[[task.variables.department]]</span>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="store" item-icon></iron-icon>
             <span>[[task.variables.expensenature]]</span>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="label" item-icon></iron-icon>
             <input value="{{task.variables.customer_code}}" placeholder="Customer code" required>
-          </paper-icon-item>
-          <paper-icon-item>
+          </div>
+          <div item>
             <iron-icon icon="attachment" title="[[i18n('wf.travelExpenses.file')]]" item-icon></iron-icon>
-            <a href="[[task.variables.file.url]]" target="_blank">[[task.variables.file.name]]</a></span>
-          </paper-icon-item>
+            <a href="[[task.variables.file.url]]" target="_blank">[[task.variables.file.name]]</a>
+          </div>
         </template>
       </nx-task-list>
 

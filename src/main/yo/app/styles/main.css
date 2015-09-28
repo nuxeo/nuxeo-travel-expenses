@@ -22,8 +22,16 @@ input {
   font-size: 14px;
 }
 
-paper-icon-item {
+[item] {
   border: 1px solid #ddd;
   margin: 10px;
   height: 40px;
+}
+
+[item] > *[item-icon] {
+  width: 56px;
+}
+
+[item] > *:not(:first-child):not(:last-child) {
+  margin-right: 16px;
 }
