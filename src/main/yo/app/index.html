@@ -28,7 +28,7 @@
 
 <template is="dom-bind" id="app">
 
-  <nx-connection url="/nuxeo"></nx-connection>
+  <nuxeo-connection url="/nuxeo"></nuxeo-connection>
 
   <paper-header-panel flex>
 
@@ -84,7 +84,7 @@
           </div>
           <div item>
             <iron-icon icon="attachment" item-icon></iron-icon>
-            <nx-file value="{{task.variables.file}}"></nx-file>
+            <nuxeo-file value="{{task.variables.file}}"></nuxeo-file>
           </div>
         </template>
 

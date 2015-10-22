@@ -5,16 +5,16 @@
   <template>
 
     <!-- The list of all tasks for the current workflow model -->
-    <nx-resource id="tasks" path="/task" params="{{tasksParams(workflowModel)}}"></nx-resource>
+    <nuxeo-resource id="tasks" path="/task" params="{{tasksParams(workflowModel)}}"></nuxeo-resource>
 
     <!-- The current task -->
-    <nx-resource id="task" data="{{task}}"></nx-resource>
+    <nuxeo-resource id="task" data="{{task}}"></nuxeo-resource>
 
     <!-- The workflow instance resource -->
-    <nx-resource id="workflow" data="{{workflowInstance}}" headers='"{\"Content-Type\": \"application/json\"}"'></nx-resource>
+    <nuxeo-resource id="workflow" data="{{workflowInstance}}" headers='"{\"Content-Type\": \"application/json\"}"'></nuxeo-resource>
 
     <!-- The list of workflow instance tasks -->
-    <nx-resource id="workflowTasks" path="/task"></nx-resource>
+    <nuxeo-resource id="workflowTasks" path="/task"></nuxeo-resource>
 
     <neon-animated-pages id="pages" class="fit" selected="[[page]]" entry-animation="fade-in-animation" exit-animation="fade-out-animation">
 
