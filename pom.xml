@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -9,7 +10,6 @@
 
   <groupId>org.nuxeo.sample</groupId>
   <artifactId>nuxeo-travel-expenses</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <name>Nuxeo Travel Expenses Sample</name>
   <description>Nuxeo Travel Expenses Sample</description>
 
@@ -24,7 +24,7 @@
             <phase>process-resources</phase>
             <configuration>
               <target>
-                <ant antfile="${basedir}/src/main/yo/build.xml" dir="${basedir}/src/main/yo"/>
+                <ant antfile="${basedir}/src/main/yo/build.xml" dir="${basedir}/src/main/yo" />
               </target>
             </configuration>
             <goals>
