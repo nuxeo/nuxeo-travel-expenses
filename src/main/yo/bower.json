@@ -12,6 +12,7 @@
     "better-dateinput-polyfill": "1.5.2"
   },
   "resolutions": {
-    "nuxeo-elements": "master"
+    "nuxeo-elements": "master",
+    "nuxeo": "^0.23.0"
   }
 }
