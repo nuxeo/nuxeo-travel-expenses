@@ -1,19 +1,13 @@
 {
   "name": "nuxeo-travel-expenses",
-  "version": "0.2.0",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.1.4",
     "iron-elements": "PolymerElements/iron-elements#^1.0.4",
     "paper-elements": "PolymerElements/paper-elements#^1.0.5",
-    "nuxeo-elements": "nuxeo/nuxeo-elements#master",
-    "nuxeo": "nuxeo/nuxeo-js-client#^0.24.0",
-    "nuxeo-dataviz-elements": "nuxeo/nuxeo-dataviz-elements#0.2.1",
+    "nuxeo-elements": "nuxeo/nuxeo-elements#0.3.0",
+    "nuxeo-dataviz-elements": "nuxeo/nuxeo-dataviz-elements#0.3.0",
     "chart-elements": "nuxeo/chart-elements#nuxeo-chart-elements",
     "moment": "2.10.6",
     "better-dateinput-polyfill": "1.5.2"
-  },
-  "resolutions": {
-    "nuxeo-elements": "master",
-    "nuxeo": "^0.24.0"
   }
 }
